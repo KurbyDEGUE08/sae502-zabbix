@@ -7,7 +7,7 @@ Ce projet s'inscrit dans le cadre de la **SAÉ 5.02**. Il consiste à automatise
 L'infrastructure de test repose sur trois éléments clés :
 
 1. **Le Serveur Zabbix (Le Cerveau)** :
-   - Machine Virtuelle **Ubuntu 22.04 LTS** (hébergée sur l'environnement de test personnel).
+   - Machine Virtuelle **debian 13** (hébergée sur l'environnement de test personnel).
    - Orchestration via **Docker & Docker Compose** sur un réseau bridge dédié (`zabbix_net` : `172.28.0.0/16`).
    - Conteneurs : `zabbix-db` (PostgreSQL 15-alpine) et `zabbix-server` (v6.4-alpine).
 
