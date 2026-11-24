@@ -1,5 +1,8 @@
 [zabbix_server]
-marsdb1-l1 ansible_host=127.0.0.1 ansible_connection=local
+marsdb1-l1 ansible_host=192.168.56.10 ansible_connection=local
 
 [windows_targets]
-# win-target-01 ansible_host=192.168.X.X
+win-target-01 ansible_host=192.168.56.102 ansible_connection=winrm ansible_winrm_transport=ntlm ansible_winrm_server_cert_validation=ignore
+
+[gns3_switches]
+sw-gns3-01 ansible_host=192.168.56.254
