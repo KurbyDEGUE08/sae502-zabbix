@@ -1,0 +1,26 @@
+---
+- name: Preparation de l'hote Debian et installation des prerequis Docker
+  hosts: zabbix_server
+  become: true
+  tasks:
+    - name: Mettre a jour le cache apt et installer les paquets requis
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+          - curl
+          - gnupg
+          - python3-docker
+        state: present
+        update_cache: true
+
+    - name: S'assurer que le service Docker est demarre et active
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Ajouter l'utilisateur au groupe docker
+      ansible.builtin.user:
+        name: vboxuser
+        groups: docker
+        append: true
