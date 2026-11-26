@@ -1,0 +1,31 @@
+---
+- name: Deployer et configurer Zabbix Agent sur Windows
+  hosts: windows_targets
+  gather_facts: no
+  vars:
+    zabbix_server_ip: "192.168.56.10"
+    zabbix_msi_src: "/tmp/zabbix_agent.msi"
+    zabbix_msi_dest: "C:\\Windows\\Temp\\zabbix_agent.msi"
+
+  tasks:
+    - name: Copier l'installateur MSI Zabbix Agent depuis marsdb1-l1
+      ansible.windows.win_copy:
+        src: "{{ zabbix_msi_src }}"
+        dest: "{{ zabbix_msi_dest }}"
+
+    - name: Installer Zabbix Agent et configurer l'IP du serveur Zabbix
+      ansible.windows.win_package:
+        path: "{{ zabbix_msi_dest }}"
+        arguments: >
+          /qn
+          SERVER={{ zabbix_server_ip }}
+          SERVERACTIVE={{ zabbix_server_ip }}
+          HOSTNAME={{ inventory_hostname }}
+          ENABLEPATH=1
+        state: present
+
+    - name: S'assurer que le service Zabbix Agent est demarre et en demarrage automatique
+      ansible.windows.win_service:
+        name: "Zabbix Agent"
+        start_mode: auto
+        state: started
