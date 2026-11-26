@@ -35,3 +35,4 @@ cp hosts.example hosts
 ansible-playbook -i hosts playbook_init.yml
 ansible-playbook -i hosts deploy_windows_agent.yml
 docker compose up -d
+```
